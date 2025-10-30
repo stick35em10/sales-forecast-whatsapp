@@ -327,7 +327,6 @@ def health_check():
     })
 
 # Inicializar modelos
-@app.before_first_request
 def initialize_models():
     """Inicializa os modelos na startup"""
     try:
@@ -338,9 +337,8 @@ def initialize_models():
     except Exception as e:
         logger.error(f"❌ Erro na inicialização: {str(e)}")
 
+initialize_models()
+
 if __name__ == '__main__':
-    # Inicializar modelos
-    initialize_models()
-    
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False)
