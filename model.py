@@ -77,13 +77,14 @@ class SalesForecaster:
         df['month_sin'] = np.sin(2 * np.pi * df['month']/12)
         df['month_cos'] = np.cos(2 * np.pi * df['month']/12)
         
-        # Features de lag
-        for lag in [1, 7, 30]:
-            df[f'sales_lag_{lag}'] = df['sales'].shift(lag)
-        
-        # Médias móveis
-        for window in [7, 14, 30]:
-            df[f'sales_ma_{window}'] = df['sales'].rolling(window=window).mean()
+        if 'sales' in df.columns:
+            # Features de lag
+            for lag in [1, 7, 30]:
+                df[f'sales_lag_{lag}'] = df['sales'].shift(lag)
+            
+            # Médias móveis
+            for window in [7, 14, 30]:
+                df[f'sales_ma_{window}'] = df['sales'].rolling(window=window).mean()
         
         # Preencher valores NaN
         df = df.fillna(method='bfill').fillna(method='ffill')
