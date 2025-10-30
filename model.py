@@ -17,7 +17,8 @@ class SalesForecaster:
         """Gera dados de exemplo realistas para demonstração"""
         np.random.seed(42)
         
-        dates = pd.date_range(start='2022-01-01', periods=periods, freq='D')
+        end_date = datetime.now() - timedelta(days=1)
+        dates = pd.date_range(end=end_date, periods=periods, freq='D')
         
         # Tendência crescente
         trend = np.linspace(1000, 5000, periods)
